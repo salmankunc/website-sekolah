@@ -1,0 +1,323 @@
+/* =============================================
+   popup-persyaratan.css
+   Styling popup persyaratan PPDB
+   ============================================= */
+
+/* ===== OVERLAY (latar gelap) ===== */
+#popupOverlay {
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  background: rgba(0, 0, 0, 0.65);
+  backdrop-filter: blur(3px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 16px;
+  /* Awal: tersembunyi */
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+/* Muncul saat class .popup-visible ditambahkan JS */
+#popupOverlay.popup-visible { opacity: 1; }
+
+/* Menghilang saat .popup-fade-out ditambahkan */
+#popupOverlay.popup-fade-out { opacity: 0; }
+
+/* ===== KOTAK POPUP ===== */
+.popup-box {
+  background: #ffffff;
+  border-radius: 20px;
+  width: 100%;
+  max-width: 560px;
+  max-height: 90vh;
+  overflow-y: auto;
+  box-shadow: 0 24px 80px rgba(0, 0, 0, 0.3);
+  /* Animasi slide-up + scale */
+  transform: translateY(24px) scale(0.97);
+  transition: transform 0.35s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+#popupOverlay.popup-visible .popup-box {
+  transform: translateY(0) scale(1);
+}
+
+/* ===== HEADER ===== */
+.popup-header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  padding: 24px 24px 0 24px;
+  gap: 12px;
+}
+
+.popup-header-left {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
+.popup-ikon-wrap {
+  font-size: 28px;
+  width: 56px;
+  height: 56px;
+  min-width: 56px;
+  background: linear-gradient(135deg, #fef3c7, #fde68a);
+  border-radius: 14px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 2px solid #fcd34d;
+}
+
+.popup-judul {
+  font-size: 20px;
+  font-weight: 800;
+  color: #1a3a5c;
+  margin: 0 0 3px 0;
+  line-height: 1.2;
+  font-family: 'Plus Jakarta Sans', sans-serif;
+}
+
+.popup-subjudul {
+  font-size: 12px;
+  color: #6b7280;
+  margin: 0;
+  font-family: 'Plus Jakarta Sans', sans-serif;
+}
+
+/* Tombol X */
+.popup-btn-close {
+  background: #f3f4f6;
+  border: none;
+  border-radius: 8px;
+  width: 36px;
+  height: 36px;
+  min-width: 36px;
+  font-size: 16px;
+  cursor: pointer;
+  color: #6b7280;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.15s;
+  font-family: inherit;
+  margin-top: 4px;
+}
+
+.popup-btn-close:hover {
+  background: #fee2e2;
+  color: #dc2626;
+}
+
+/* ===== BODY ===== */
+.popup-body {
+  padding: 20px 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+/* Section blok info */
+.popup-section {
+  display: flex;
+  gap: 14px;
+  background: #f8faff;
+  border: 1px solid #e5e7eb;
+  border-radius: 12px;
+  padding: 14px 16px;
+}
+
+.popup-section-icon {
+  font-size: 22px;
+  margin-top: 2px;
+  flex-shrink: 0;
+}
+
+.popup-section-content { flex: 1; }
+
+.popup-section-title {
+  font-size: 13px;
+  font-weight: 700;
+  color: #1a3a5c;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  margin: 0 0 8px 0;
+  font-family: 'Plus Jakarta Sans', sans-serif;
+}
+
+/* List poin */
+.popup-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.popup-list li {
+  font-size: 13px;
+  color: #374151;
+  padding-left: 16px;
+  position: relative;
+  line-height: 1.5;
+  font-family: 'Plus Jakarta Sans', sans-serif;
+}
+
+.popup-list li::before {
+  content: '•';
+  position: absolute;
+  left: 0;
+  color: #2563eb;
+  font-weight: 700;
+}
+
+/* Grid dokumen 2 kolom */
+.popup-dok-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 8px;
+}
+
+.popup-dok-item {
+  background: #ffffff;
+  border: 1.5px solid #e5e7eb;
+  border-radius: 10px;
+  padding: 10px 12px;
+  font-size: 13px;
+  font-weight: 600;
+  color: #374151;
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+  font-family: 'Plus Jakarta Sans', sans-serif;
+}
+
+.popup-dok-item small {
+  font-size: 11px;
+  font-weight: 400;
+  color: #9ca3af;
+}
+
+/* Badge jurusan */
+.popup-jurusan-row {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+  margin-top: 4px;
+}
+
+.popup-badge-ipa,
+.popup-badge-ips,
+.popup-badge-bhs {
+  padding: 5px 14px;
+  border-radius: 20px;
+  font-size: 13px;
+  font-weight: 700;
+  font-family: 'Plus Jakarta Sans', sans-serif;
+}
+
+.popup-badge-ipa { background: #dbeafe; color: #1d4ed8; }
+.popup-badge-ips { background: #dcfce7; color: #15803d; }
+.popup-badge-bhs { background: #f3e8ff; color: #7e22ce; }
+
+/* Blok kontak */
+.popup-kontak {
+  background: linear-gradient(135deg, #1a3a5c, #2563eb);
+  border-radius: 12px;
+  padding: 16px;
+  color: white;
+}
+
+.popup-kontak .popup-section-title { color: rgba(255,255,255,0.75); }
+
+.popup-kontak-grid {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.popup-kontak-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  font-size: 13px;
+  color: rgba(255,255,255,0.9);
+  line-height: 1.4;
+  font-family: 'Plus Jakarta Sans', sans-serif;
+}
+
+.popup-kontak-icon { font-size: 16px; flex-shrink: 0; margin-top: 1px; }
+
+/* ===== FOOTER ===== */
+.popup-footer {
+  padding: 16px 24px 24px 24px;
+  border-top: 1px solid #f3f4f6;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+}
+
+.popup-disclaimer {
+  font-size: 12px;
+  color: #9ca3af;
+  text-align: center;
+  margin: 0;
+  line-height: 1.5;
+  font-family: 'Plus Jakarta Sans', sans-serif;
+}
+
+/* Tombol utama */
+.popup-btn-mengerti {
+  width: 100%;
+  background: linear-gradient(135deg, #2563eb, #1d4ed8);
+  color: white;
+  border: none;
+  border-radius: 12px;
+  padding: 14px 24px;
+  font-size: 15px;
+  font-weight: 700;
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  cursor: pointer;
+  transition: all 0.2s;
+  box-shadow: 0 4px 20px rgba(37, 99, 235, 0.35);
+}
+
+.popup-btn-mengerti:hover {
+  background: linear-gradient(135deg, #1d4ed8, #1e40af);
+  transform: translateY(-1px);
+  box-shadow: 0 6px 28px rgba(37, 99, 235, 0.45);
+}
+
+.popup-btn-mengerti:active { transform: translateY(0); }
+
+/* Scrollbar custom */
+.popup-box::-webkit-scrollbar { width: 5px; }
+.popup-box::-webkit-scrollbar-track { background: #f3f4f6; border-radius: 10px; }
+.popup-box::-webkit-scrollbar-thumb { background: #d1d5db; border-radius: 10px; }
+
+/* ===== RESPONSIVE MOBILE ===== */
+@media (max-width: 480px) {
+  #popupOverlay {
+    padding: 0;
+    align-items: flex-end; /* Muncul dari bawah layar */
+  }
+
+  .popup-box {
+    border-radius: 20px 20px 0 0;
+    max-height: 92vh;
+    transform: translateY(100%); /* Mulai dari bawah */
+  }
+
+  #popupOverlay.popup-visible .popup-box {
+    transform: translateY(0);
+  }
+
+  .popup-header { padding: 20px 18px 0 18px; }
+  .popup-body   { padding: 16px 18px; }
+  .popup-footer { padding: 14px 18px 28px 18px; }
+  .popup-judul  { font-size: 17px; }
+}

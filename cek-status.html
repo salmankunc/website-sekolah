@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Cek Status Pendaftaran - SIAP PPDB</title>
+  <link rel="stylesheet" href="style.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700;800&display=swap" rel="stylesheet" />
+</head>
+<body>
+  <nav class="navbar">
+    <div class="nav-brand">
+      <a href="index.html" style="text-decoration:none;display:flex;align-items:center;gap:8px;color:inherit;">
+        <span class="nav-logo">🎓</span><span class="nav-title">SIAP PPDB</span>
+      </a>
+    </div>
+    <a href="login.html" class="nav-admin-link">Panel Admin →</a>
+  </nav>
+
+  <main class="login-main">
+    <div class="login-container">
+      <div class="login-header">
+        <div class="login-icon-wrap">🔎</div>
+        <h2 class="login-title">Cek Status Pendaftaran</h2>
+        <p class="login-subtitle">Masukkan NISN Anda untuk melihat status pendaftaran</p>
+      </div>
+
+      <form id="formCek" class="form-body">
+        <div class="form-group">
+          <label for="nisn">🔢 NISN Anda</label>
+          <input type="text" id="nisn" placeholder="Contoh: 0012345678" maxlength="10" required />
+        </div>
+        <button type="submit" class="btn-submit" id="btnCek">🔍 Cek Status</button>
+      </form>
+
+      <!-- Hasil cek -->
+      <div id="hasilCek" style="display:none; margin-top:24px;">
+        <div class="status-result-card">
+          <div class="result-nim"><span>NIM:</span> <strong id="resNIM">-</strong></div>
+          <div class="result-nama" id="resNama"></div>
+          <div class="result-jurusan" id="resJurusan"></div>
+          <div id="resBadgeStatus"></div>
+          <div class="result-catatan" id="resCatatan" style="display:none;"></div>
+          <div class="result-waktu" id="resWaktu"></div>
+        </div>
+      </div>
+
+      <div id="pesanError" class="pesan-error" style="display:none;">
+        <p id="teksError"></p>
+      </div>
+
+      <p class="auth-link" style="margin-top:20px;">
+        Belum mendaftar? <a href="daftar.html">Daftar di sini</a>
+      </p>
+    </div>
+  </main>
+
+  <script>
+    const labelStatus = {
+      'pending'     : '<span class="badge-status badge-pending">⏳ Menunggu Verifikasi</span>',
+      'diverifikasi': '<span class="badge-status badge-diverifikasi">🔍 Sedang Diverifikasi</span>',
+      'diterima'    : '<span class="badge-status badge-diterima">✅ Diterima</span>',
+      'ditolak'     : '<span class="badge-status badge-ditolak">❌ Tidak Diterima</span>',
+    };
+
+    document.getElementById('formCek').addEventListener('submit', async function(e) {
+      e.preventDefault();
+      const nisn = document.getElementById('nisn').value.trim();
+      const btnCek = document.getElementById('btnCek');
+      btnCek.textContent = '⏳ Memeriksa...';
+      btnCek.disabled = true;
+      document.getElementById('hasilCek').style.display = 'none';
+      document.getElementById('pesanError').style.display = 'none';
+
+      try {
+        const res = await fetch(`/api/status/${nisn}`);
+        const hasil = await res.json();
+
+        if (hasil.berhasil) {
+          const d = hasil.data;
+          document.getElementById('resNIM').textContent     = d.nim || '-';
+          document.getElementById('resNama').textContent    = d.nama;
+          document.getElementById('resJurusan').textContent = '📚 Jurusan ' + d.jurusan;
+          document.getElementById('resBadgeStatus').innerHTML = labelStatus[d.status] || d.status;
+          document.getElementById('resWaktu').textContent   = '📅 Daftar: ' + d.waktuDaftar;
+
+          if (d.catatan) {
+            document.getElementById('resCatatan').textContent = '💬 Catatan: ' + d.catatan;
+            document.getElementById('resCatatan').style.display = 'block';
+          } else {
+            document.getElementById('resCatatan').style.display = 'none';
+          }
+          document.getElementById('hasilCek').style.display = 'block';
+        } else {
+          document.getElementById('teksError').textContent = hasil.pesan;
+          document.getElementById('pesanError').style.display = 'block';
+        }
+      } catch {
+        document.getElementById('teksError').textContent = '⚠️ Tidak dapat terhubung ke server.';
+        document.getElementById('pesanError').style.display = 'block';
+      }
+
+      btnCek.textContent = '🔍 Cek Status';
+      btnCek.disabled = false;
+    });
+  </script>
+</body>
+</html>

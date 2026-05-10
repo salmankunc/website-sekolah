@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>SIAP PPDB - SMA Swasta</title>
+  <link rel="stylesheet" href="style.css" />
+  <!-- [BARU] CSS popup persyaratan -->
+  <link rel="stylesheet" href="popup-persyaratan.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700;800&family=Merriweather:ital,wght@0,700;1,400&display=swap" rel="stylesheet" />
+</head>
+<body>
+
+  <!-- ===== NAVBAR ===== -->
+  <nav class="navbar">
+    <div class="nav-brand">
+      <span class="nav-logo">🎓</span>
+      <span class="nav-title">SIAP PPDB</span>
+    </div>
+    <div style="display:flex;gap:10px;"><a href="cek-status.html" class="nav-admin-link" style="background:var(--hijau-muda);border-color:var(--hijau);color:var(--hijau);">🔍 Cek Status</a><a href="login.html" class="nav-admin-link">Panel Admin →</a></div>
+  </nav>
+
+  <!-- ===== HERO SECTION ===== -->
+  <main class="hero">
+    <div class="hero-bg-shapes">
+      <div class="shape shape-1"></div>
+      <div class="shape shape-2"></div>
+      <div class="shape shape-3"></div>
+    </div>
+
+    <div class="hero-content">
+      <div class="badge">📅 Pendaftaran Tahun Ajaran 2025/2026</div>
+
+      <h1 class="hero-title">
+        Sistem Informasi<br />
+        <em>Penerimaan Peserta Didik</em><br />
+        Baru
+      </h1>
+
+      <p class="school-name">SMA Swasta</p>
+
+      <p class="hero-desc">
+        Daftarkan diri Anda sekarang dan wujudkan masa depan cerah
+        bersama kami. Proses pendaftaran mudah, cepat, dan transparan.
+      </p>
+
+      <a href="daftar.html" class="btn-daftar">✏️ Daftar Sekarang</a>
+
+      <div class="stats">
+        <div class="stat-item">
+          <span class="stat-number">500+</span>
+          <span class="stat-label">Kursi Tersedia</span>
+        </div>
+        <div class="stat-divider"></div>
+        <div class="stat-item">
+          <span class="stat-number">3</span>
+          <span class="stat-label">Jurusan</span>
+        </div>
+        <div class="stat-divider"></div>
+        <div class="stat-item">
+          <span class="stat-number">Gratis</span>
+          <span class="stat-label">Biaya Daftar</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="hero-illustration">
+      <div class="illus-card">
+        <div class="illus-icon">📚</div>
+        <div class="illus-text">Belajar Bersama</div>
+      </div>
+      <div class="illus-card illus-card-2">
+        <div class="illus-icon">🏆</div>
+        <div class="illus-text">Raih Prestasi</div>
+      </div>
+      <div class="illus-card illus-card-3">
+        <div class="illus-icon">🌟</div>
+        <div class="illus-text">Masa Depan Cerah</div>
+      </div>
+    </div>
+  </main>
+
+  <!-- ===== [BARU] SECTION INFORMASI SEKOLAH ===== -->
+  <!-- Ditambahkan di bawah hero untuk menampilkan profil lengkap sekolah -->
+  <section class="school-info-section">
+    <div class="school-info-container">
+
+      <!-- Judul section -->
+      <div class="section-header">
+        <div class="section-badge">🏫 Profil Sekolah</div>
+        <h2 class="section-title">Tentang SMA Swasta</h2>
+        <p class="section-desc">Mengenal lebih dekat sekolah impian Anda</p>
+      </div>
+
+      <!-- Grid kartu informasi -->
+      <div class="info-grid">
+
+        <!-- Kartu: Identitas Sekolah -->
+        <div class="info-card info-card-main">
+          <div class="info-card-icon">🏛️</div>
+          <h3>Identitas Sekolah</h3>
+          <ul class="info-list">
+            <li>
+              <span class="info-label">Nama</span>
+              <span class="info-value">SMA Swasta</span>
+            </li>
+            <li>
+              <span class="info-label">📍 Alamat</span>
+              <span class="info-value">Jl. Pendidikan No. 123, Kecamatan Ilmu, Kota Pintar 12345</span>
+            </li>
+            <li>
+              <span class="info-label">📞 Telepon</span>
+              <span class="info-value">(021) 1234-5678</span>
+            </li>
+            <li>
+              <span class="info-label">📧 Email</span>
+              <span class="info-value">info@smaswasta.sch.id</span>
+            </li>
+            <li>
+              <span class="info-label">⏰ Jam Operasional</span>
+              <span class="info-value">Senin – Jumat, 07.00 – 15.00 WIB</span>
+            </li>
+          </ul>
+        </div>
+
+        <!-- Kartu: Visi -->
+        <div class="info-card">
+          <div class="info-card-icon">🔭</div>
+          <h3>Visi</h3>
+          <p class="info-text">
+            Menjadi sekolah unggulan yang melahirkan generasi cerdas, berkarakter,
+            dan berdaya saing global berlandaskan nilai-nilai Pancasila.
+          </p>
+        </div>
+
+        <!-- Kartu: Misi -->
+        <div class="info-card">
+          <div class="info-card-icon">🎯</div>
+          <h3>Misi</h3>
+          <ul class="info-list-dot">
+            <li>Menyelenggarakan pembelajaran berkualitas dan inovatif</li>
+            <li>Membentuk karakter siswa yang berakhlak mulia</li>
+            <li>Mengembangkan potensi akademik dan non-akademik</li>
+            <li>Membangun kemitraan dengan dunia industri dan perguruan tinggi</li>
+          </ul>
+        </div>
+
+        <!-- Kartu: Jurusan Tersedia -->
+        <div class="info-card">
+          <div class="info-card-icon">📖</div>
+          <h3>Jurusan (Kurikulum Merdeka)</h3>
+          <div class="jurusan-list">
+            <div class="jurusan-item jurusan-ipa">
+              <span class="jurusan-icon">🔬</span>
+              <div>
+                <strong>IPA (Sains)</strong>
+                <small>Matematika, Fisika, Kimia, Biologi</small>
+              </div>
+            </div>
+            <div class="jurusan-item jurusan-ips">
+              <span class="jurusan-icon">🌐</span>
+              <div>
+                <strong>IPS (Sosial)</strong>
+                <small>Ekonomi, Sosiologi, Geografi, Sejarah</small>
+              </div>
+            </div>
+            <div class="jurusan-item jurusan-bahasa">
+              <span class="jurusan-icon">📝</span>
+              <div>
+                <strong>Bahasa</strong>
+                <small>Sastra Indonesia, Bahasa Inggris, Bahasa Asing</small>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div><!-- end .info-grid -->
+
+      <!-- Tombol CTA di bawah -->
+      <div style="text-align:center; margin-top: 40px;">
+        <a href="daftar.html" class="btn-daftar" style="font-size:15px; padding: 14px 32px;">
+          ✏️ Daftar Sekarang
+        </a>
+      </div>
+
+    </div>
+  </section>
+  <!-- ===== [END BARU] ===== -->
+
+  <!-- ===== FOOTER ===== -->
+  <footer class="footer">
+    <div class="footer-content">
+      <p><strong>SMA Swasta</strong> · Jl. Pendidikan No. 123 · (021) 1234-5678 · info@smaswasta.sch.id</p>
+      <p style="margin-top:6px;">© 2025 SIAP PPDB · Sistem Informasi Penerimaan Peserta Didik Baru</p>
+    </div>
+  </footer>
+
+  <!-- [BARU] Script popup persyaratan -->
+  <script src="popup-persyaratan.js"></script>
+</body>
+</html>

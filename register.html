@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Register Admin - SIAP PPDB</title>
+  <link rel="stylesheet" href="style.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700;800&display=swap" rel="stylesheet" />
+</head>
+<body>
+
+  <nav class="navbar">
+    <div class="nav-brand">
+      <a href="index.html" style="text-decoration:none; display:flex; align-items:center; gap:8px; color:inherit;">
+        <span class="nav-logo">🎓</span>
+        <span class="nav-title">SIAP PPDB</span>
+      </a>
+    </div>
+    <span class="nav-admin-badge">📝 Registrasi Admin</span>
+  </nav>
+
+  <main class="login-main">
+    <div class="login-container">
+
+      <div class="login-header">
+        <div class="login-icon-wrap">🧑‍💼</div>
+        <h2 class="login-title">Buat Akun Admin</h2>
+        <p class="login-subtitle">Daftarkan akun admin baru untuk mengakses dashboard</p>
+      </div>
+
+      <!-- Form register -->
+      <form id="formRegister" class="form-body">
+
+        <div class="form-group">
+          <label for="email">📧 Email Admin</label>
+          <input type="email" id="email" placeholder="contoh@email.com" required />
+        </div>
+
+        <div class="form-group">
+          <label for="password">🔑 Password</label>
+          <div class="input-password-wrap">
+            <input type="password" id="password" placeholder="Minimal 6 karakter" required />
+            <button type="button" class="btn-toggle-pw" onclick="togglePw('password', this)">👁️</button>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="konfirmPassword">🔒 Konfirmasi Password</label>
+          <div class="input-password-wrap">
+            <input type="password" id="konfirmPassword" placeholder="Ketik ulang password" required />
+            <button type="button" class="btn-toggle-pw" onclick="togglePw('konfirmPassword', this)">👁️</button>
+          </div>
+        </div>
+
+        <button type="submit" class="btn-submit" id="btnRegister">
+          ✅ Buat Akun
+        </button>
+
+      </form>
+
+      <!-- Pesan sukses -->
+      <div id="pesanSukses" class="pesan-sukses" style="display:none;">
+        <div class="pesan-icon">🎉</div>
+        <h3>Akun Berhasil Dibuat!</h3>
+        <p>Akun admin Anda sudah siap. Silakan login untuk mengakses dashboard.</p>
+        <a href="login.html" class="btn-kembali">→ Pergi ke Halaman Login</a>
+      </div>
+
+      <!-- Pesan error -->
+      <div id="pesanError" class="pesan-error" style="display:none;">
+        <span id="teksError"></span>
+      </div>
+
+      <!-- Link ke login -->
+      <p class="auth-link">Sudah punya akun? <a href="login.html">Login di sini</a></p>
+
+    </div>
+  </main>
+
+  <script>
+    // Toggle lihat/sembunyikan password
+    function togglePw(inputId, btn) {
+      const input = document.getElementById(inputId);
+      input.type = input.type === 'password' ? 'text' : 'password';
+      btn.textContent = input.type === 'password' ? '👁️' : '🙈';
+    }
+
+    document.getElementById('formRegister').addEventListener('submit', async function(e) {
+      e.preventDefault();
+
+      const email          = document.getElementById('email').value.trim();
+      const password       = document.getElementById('password').value;
+      const konfirmPassword = document.getElementById('konfirmPassword').value;
+      const btnRegister    = document.getElementById('btnRegister');
+      const pesanError     = document.getElementById('pesanError');
+      const teksError      = document.getElementById('teksError');
+
+      pesanError.style.display = 'none';
+
+      // Validasi di sisi browser: password harus sama
+      if (password !== konfirmPassword) {
+        teksError.textContent = '❌ Password dan konfirmasi password tidak sama!';
+        pesanError.style.display = 'block';
+        return;
+      }
+
+      btnRegister.textContent = '⏳ Memproses...';
+      btnRegister.disabled = true;
+
+      try {
+        // Kirim email & password ke POST /api/register
+        // Hash dilakukan di SERVER (backend), bukan di sini
+        const response = await fetch('/api/register', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          credentials: 'include',
+          body: JSON.stringify({ email, password })
+        });
+
+        const hasil = await response.json();
+
+        if (response.ok && hasil.berhasil) {
+          // Sembunyikan form, tampilkan pesan sukses
+          document.getElementById('formRegister').style.display = 'none';
+          document.querySelector('.auth-link').style.display = 'none';
+          document.getElementById('pesanSukses').style.display = 'block';
+        } else {
+          teksError.textContent = hasil.pesan || 'Registrasi gagal.';
+          pesanError.style.display = 'block';
+          btnRegister.textContent = '✅ Buat Akun';
+          btnRegister.disabled = false;
+        }
+
+      } catch (err) {
+        teksError.textContent = '⚠️ Tidak dapat terhubung ke server.';
+        pesanError.style.display = 'block';
+        btnRegister.textContent = '✅ Buat Akun';
+        btnRegister.disabled = false;
+      }
+    });
+  </script>
+
+</body>
+</html>

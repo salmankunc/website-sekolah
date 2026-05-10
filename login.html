@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Login Admin - SIAP PPDB</title>
+  <link rel="stylesheet" href="style.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700;800&display=swap" rel="stylesheet" />
+</head>
+<body>
+
+  <nav class="navbar">
+    <div class="nav-brand">
+      <a href="index.html" style="text-decoration:none; display:flex; align-items:center; gap:8px; color:inherit;">
+        <span class="nav-logo">🎓</span>
+        <span class="nav-title">SIAP PPDB</span>
+      </a>
+    </div>
+    <span class="nav-admin-badge">🔐 Login Admin</span>
+  </nav>
+
+  <main class="login-main">
+    <div class="login-container">
+
+      <div class="login-header">
+        <div class="login-icon-wrap">🔐</div>
+        <h2 class="login-title">Login Admin</h2>
+        <p class="login-subtitle">Masuk untuk mengakses dashboard PPDB</p>
+      </div>
+
+      <!-- Kotak info akun default -->
+      <div class="login-info-box">
+        <strong>ℹ️ Akun Default:</strong><br />
+        Email: <code>admin@ppdb.com</code> &nbsp; Password: <code>123456</code>
+      </div>
+
+      <form id="formLogin" class="form-body">
+
+        <div class="form-group">
+          <label for="email">📧 Email Admin</label>
+          <input type="email" id="email" placeholder="admin@ppdb.com" value="admin@ppdb.com" required />
+        </div>
+
+        <div class="form-group">
+          <label for="password">🔑 Password</label>
+          <div class="input-password-wrap">
+            <input type="password" id="password" placeholder="Masukkan password" value="123456" required />
+            <button type="button" id="btnTogglePassword" class="btn-toggle-pw">👁️</button>
+          </div>
+        </div>
+
+        <button type="submit" class="btn-submit" id="btnLogin">
+          🚀 Masuk ke Dashboard
+        </button>
+
+      </form>
+
+      <div id="pesanError" class="pesan-error" style="display:none;">
+        <span id="teksError"></span>
+      </div>
+
+      <!-- [BARU] Link navigasi ke register & reset password -->
+      <div class="auth-links-group">
+        <p class="auth-link">Belum punya akun? <a href="register.html">Daftar di sini</a></p>
+        <p class="auth-link">Lupa password? <a href="reset-password.html">Reset di sini</a></p>
+      </div>
+
+    </div>
+  </main>
+
+  <script>
+    document.getElementById('btnTogglePassword').addEventListener('click', function() {
+      const input = document.getElementById('password');
+      input.type = input.type === 'password' ? 'text' : 'password';
+      this.textContent = input.type === 'password' ? '👁️' : '🙈';
+    });
+
+    document.getElementById('formLogin').addEventListener('submit', async function(e) {
+      e.preventDefault();
+
+      const email    = document.getElementById('email').value;
+      const password = document.getElementById('password').value;
+      const btnLogin = document.getElementById('btnLogin');
+      const pesanError = document.getElementById('pesanError');
+      const teksError  = document.getElementById('teksError');
+
+      btnLogin.textContent = '⏳ Memproses...';
+      btnLogin.disabled = true;
+      pesanError.style.display = 'none';
+
+      try {
+        const response = await fetch('/api/login', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          credentials: 'include',
+          body: JSON.stringify({ email, password })
+        });
+
+        const hasil = await response.json();
+
+        if (response.ok && hasil.berhasil) {
+          window.location.href = '/admin.html';
+        } else {
+          teksError.textContent = hasil.pesan || 'Login gagal.';
+          pesanError.style.display = 'block';
+          btnLogin.textContent = '🚀 Masuk ke Dashboard';
+          btnLogin.disabled = false;
+        }
+      } catch (err) {
+        teksError.textContent = '⚠️ Tidak dapat terhubung ke server.';
+        pesanError.style.display = 'block';
+        btnLogin.textContent = '🚀 Masuk ke Dashboard';
+        btnLogin.disabled = false;
+      }
+    });
+  </script>
+
+</body>
+</html>

@@ -1,0 +1,397 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Dashboard Admin - SIAP PPDB</title>
+  <link rel="stylesheet" href="style.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700;800&display=swap" rel="stylesheet" />
+</head>
+<body>
+  <nav class="navbar">
+    <div class="nav-brand">
+      <a href="index.html" style="text-decoration:none;display:flex;align-items:center;gap:8px;color:inherit;">
+        <span class="nav-logo">🎓</span><span class="nav-title">SIAP PPDB</span>
+      </a>
+    </div>
+    <div style="display:flex;align-items:center;gap:12px;">
+      <span class="nav-admin-badge" id="infoAdmin">🔐 Admin</span>
+      <button onclick="logout()" class="btn-logout">🚪 Logout</button>
+    </div>
+  </nav>
+
+  <main class="admin-main">
+    <div class="admin-container">
+
+      <div class="admin-header">
+        <div>
+          <h2 class="admin-title">📋 Dashboard Admin</h2>
+          <p class="admin-subtitle" id="subtitleAdmin">Data siswa pendaftar</p>
+        </div>
+        <div style="display:flex;gap:10px;flex-wrap:wrap;">
+          <button onclick="muatData()" class="btn-refresh">🔄 Refresh</button>
+          <button onclick="exportCSV()" class="btn-export">📥 Export CSV</button>
+        </div>
+      </div>
+
+      <!-- Kartu statistik -->
+      <div class="admin-stats-row">
+        <div class="summary-card">
+          <div class="summary-icon">👥</div>
+          <div><div class="summary-number" id="jmlTotal">-</div><div class="summary-label">Total</div></div>
+        </div>
+        <div class="summary-card" style="background:linear-gradient(135deg,#f59e0b,#d97706)">
+          <div class="summary-icon">⏳</div>
+          <div><div class="summary-number" id="jmlPending">-</div><div class="summary-label">Pending</div></div>
+        </div>
+        <div class="summary-card summary-card-green">
+          <div class="summary-icon">✅</div>
+          <div><div class="summary-number" id="jmlLulus">-</div><div class="summary-label">Lulus</div></div>
+        </div>
+        <div class="summary-card summary-card-pink">
+          <div class="summary-icon">❌</div>
+          <div><div class="summary-number" id="jmlTidakLulus">-</div><div class="summary-label">Tidak Lulus</div></div>
+        </div>
+      </div>
+
+      <!-- Filter & Search bar -->
+      <div class="filter-bar">
+        <div class="search-wrap">
+          <span class="search-icon">🔍</span>
+          <input type="text" id="inputSearch" class="input-search" placeholder="Cari nama atau NISN..." oninput="terapkanFilter()" />
+        </div>
+        <select id="filterJurusan" class="select-filter" onchange="terapkanFilter()">
+          <option value="">Semua Jurusan</option>
+          <option value="IPA">🔬 IPA</option>
+          <option value="IPS">🌐 IPS</option>
+          <option value="Bahasa">📝 Bahasa</option>
+        </select>
+        <!-- [BARU] Filter berdasarkan hasil tes -->
+        <select id="filterHasilTes" class="select-filter" onchange="terapkanFilter()">
+          <option value="">Semua Hasil Tes</option>
+          <option value="Diproses">⏳ Diproses</option>
+          <option value="Lulus">✅ Lulus</option>
+          <option value="Cadangan">🔄 Cadangan</option>
+          <option value="Tidak Lulus">❌ Tidak Lulus</option>
+        </select>
+        <button onclick="resetFilter()" class="btn-refresh">✕ Reset</button>
+      </div>
+
+      <div id="statusLoading" class="status-info">⏳ Memuat data...</div>
+      <div id="statusKosong"  class="status-info" style="display:none;">📭 Belum ada pendaftar.</div>
+      <div id="statusTidakDitemukan" class="status-info" style="display:none;">🔍 Tidak ada data sesuai filter.</div>
+      <div id="statusError"   class="status-info status-error" style="display:none;">❌ Gagal memuat data.</div>
+
+      <div class="table-wrapper" id="tabelWrapper" style="display:none;">
+        <table class="tabel-pendaftar">
+          <thead>
+            <tr>
+              <th>#</th>
+              <th>Foto</th>
+              <th>NIM</th>
+              <th>Nama</th>
+              <th>NISN</th>
+              <th>JK</th>
+              <th>Jurusan</th>
+              <th>No HP</th>
+              <th>Wali</th>         <!-- [BARU] -->
+              <th>Dokumen</th>      <!-- [BARU] -->
+              <th>Hasil Tes</th>    <!-- [BARU] -->
+              <th>Nilai</th>        <!-- [BARU] -->
+              <th>Status</th>
+              <th>Aksi</th>
+            </tr>
+          </thead>
+          <tbody id="isiTabel"></tbody>
+        </table>
+      </div>
+
+    </div>
+  </main>
+
+  <!-- ===== MODAL HASIL TES ===== -->
+  <div id="modalTes" class="modal-overlay" style="display:none;" onclick="tutupModal('modalTes',event)">
+    <div class="modal-box">
+      <h3 class="modal-title">📊 Input Hasil Tes</h3>
+      <p class="modal-nama" id="modalTesNama"></p>
+      <div class="form-group">
+        <label>Nilai Tes (0–100)</label>
+        <input type="number" id="modalNilai" min="0" max="100" placeholder="Contoh: 85"
+          style="width:100%;padding:10px 14px;border:1.5px solid var(--border);border-radius:10px;font-size:15px;font-family:inherit;outline:none;" />
+      </div>
+      <div class="form-group" style="margin-top:12px;">
+        <label>Hasil Seleksi</label>
+        <select id="modalHasil" style="width:100%;" class="select-filter">
+          <option value="Diproses">⏳ Diproses</option>
+          <option value="Lulus">✅ Lulus</option>
+          <option value="Cadangan">🔄 Cadangan</option>
+          <option value="Tidak Lulus">❌ Tidak Lulus</option>
+        </select>
+      </div>
+      <div class="form-group" style="margin-top:12px;">
+        <label>Catatan Admin</label>
+        <textarea id="modalCatatanAdmin" rows="2" placeholder="Catatan tambahan..."
+          style="width:100%;padding:10px;border:1.5px solid var(--border);border-radius:10px;font-family:inherit;font-size:14px;resize:vertical;"></textarea>
+      </div>
+      <div style="display:flex;gap:10px;margin-top:16px;">
+        <button onclick="simpanTes()" class="btn-submit" style="flex:1;padding:12px;">💾 Simpan</button>
+        <button onclick="document.getElementById('modalTes').style.display='none'" class="btn-refresh" style="flex:1;padding:12px;">✕ Batal</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===== MODAL STATUS ===== -->
+  <div id="modalStatus" class="modal-overlay" style="display:none;" onclick="tutupModal('modalStatus',event)">
+    <div class="modal-box">
+      <h3 class="modal-title">✏️ Update Status</h3>
+      <p class="modal-nama" id="modalStatusNama"></p>
+      <div class="form-group">
+        <label>Status</label>
+        <select id="modalPilihStatus" class="select-filter" style="width:100%">
+          <option value="pending">⏳ Pending</option>
+          <option value="diverifikasi">🔍 Diverifikasi</option>
+          <option value="diterima">✅ Diterima</option>
+          <option value="ditolak">❌ Ditolak</option>
+        </select>
+      </div>
+      <div class="form-group" style="margin-top:12px;">
+        <label>Catatan</label>
+        <textarea id="modalCatatan" rows="2" placeholder="Catatan admin..."
+          style="width:100%;padding:10px;border:1.5px solid var(--border);border-radius:10px;font-family:inherit;font-size:14px;resize:vertical;"></textarea>
+      </div>
+      <div style="display:flex;gap:10px;margin-top:16px;">
+        <button onclick="simpanStatus()" class="btn-submit" style="flex:1;padding:12px;">💾 Simpan</button>
+        <button onclick="document.getElementById('modalStatus').style.display='none'" class="btn-refresh" style="flex:1;padding:12px;">✕ Batal</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===== MODAL DETAIL WALI ===== -->
+  <div id="modalWali" class="modal-overlay" style="display:none;" onclick="tutupModal('modalWali',event)">
+    <div class="modal-box">
+      <h3 class="modal-title">👨‍👩‍👦 Detail Wali Murid</h3>
+      <div id="isiModalWali" class="info-list" style="margin-top:16px;"></div>
+      <button onclick="document.getElementById('modalWali').style.display='none'" class="btn-refresh" style="width:100%;margin-top:16px;padding:10px;">✕ Tutup</button>
+    </div>
+  </div>
+
+  <script>
+    let semuaData = [];
+    let idTesEdit = null;
+    let idStatusEdit = null;
+
+    async function cekStatusLogin() {
+      try {
+        const res = await fetch('/api/cek-login', { credentials: 'include' });
+        const h   = await res.json();
+        if (!h.sudahLogin) { alert('Anda harus login!'); window.location.href = '/login.html'; return; }
+        document.getElementById('infoAdmin').textContent    = '👤 ' + h.admin.email;
+        document.getElementById('subtitleAdmin').textContent = 'Login sejak: ' + h.admin.waktuLogin;
+        muatData();
+      } catch { alert('Tidak dapat terhubung!'); window.location.href = '/login.html'; }
+    }
+
+    async function muatData() {
+      document.getElementById('statusLoading').style.display = 'block';
+      ['statusKosong','statusError','statusTidakDitemukan'].forEach(id => document.getElementById(id).style.display = 'none');
+      document.getElementById('tabelWrapper').style.display = 'none';
+      try {
+        const res = await fetch('/api/pendaftar', { credentials: 'include' });
+        if (res.status === 401) { window.location.href = '/login.html'; return; }
+        semuaData = await res.json();
+        document.getElementById('statusLoading').style.display = 'none';
+        document.getElementById('jmlTotal').textContent     = semuaData.length;
+        document.getElementById('jmlPending').textContent   = semuaData.filter(p => !p.hasilTes || p.hasilTes === 'Diproses').length;
+        document.getElementById('jmlLulus').textContent     = semuaData.filter(p => p.hasilTes === 'Lulus').length;
+        document.getElementById('jmlTidakLulus').textContent = semuaData.filter(p => p.hasilTes === 'Tidak Lulus').length;
+        if (!semuaData.length) { document.getElementById('statusKosong').style.display = 'block'; return; }
+        terapkanFilter();
+      } catch {
+        document.getElementById('statusLoading').style.display = 'none';
+        document.getElementById('statusError').style.display = 'block';
+      }
+    }
+
+    function terapkanFilter() {
+      const cari      = document.getElementById('inputSearch').value.toLowerCase();
+      const jurusan   = document.getElementById('filterJurusan').value;
+      const hasilTes  = document.getElementById('filterHasilTes').value;
+      const hasil = semuaData.filter(p =>
+        (!cari     || p.nama.toLowerCase().includes(cari) || p.nisn.includes(cari)) &&
+        (!jurusan  || p.jurusan === jurusan) &&
+        (!hasilTes || p.hasilTes === hasilTes)
+      );
+      renderTabel(hasil);
+    }
+
+    function resetFilter() {
+      ['inputSearch'].forEach(id => document.getElementById(id).value = '');
+      ['filterJurusan','filterHasilTes'].forEach(id => document.getElementById(id).value = '');
+      terapkanFilter();
+    }
+
+    function renderTabel(data) {
+      document.getElementById('statusTidakDitemukan').style.display = data.length === 0 ? 'block' : 'none';
+      document.getElementById('tabelWrapper').style.display         = data.length > 0  ? 'block' : 'none';
+      const tbody = document.getElementById('isiTabel');
+      tbody.innerHTML = '';
+
+      data.forEach((p, i) => {
+        const baris = document.createElement('tr');
+
+        const badgeJK      = p.jenisKelamin === 'Laki-laki' ? `<span class="badge-laki">👦</span>` : `<span class="badge-perempuan">👧</span>`;
+        const badgeJurusan = {'IPA':`<span class="badge-ipa">IPA</span>`,'IPS':`<span class="badge-ips">IPS</span>`,'Bahasa':`<span class="badge-bahasa">Bhs</span>`}[p.jurusan] || p.jurusan;
+        const badgeStatus  = {'pending':`<span class="badge-status badge-pending">⏳</span>`,'diverifikasi':`<span class="badge-status badge-diverifikasi">🔍</span>`,'diterima':`<span class="badge-status badge-diterima">✅</span>`,'ditolak':`<span class="badge-status badge-ditolak">❌</span>`}[p.status] || '';
+
+        // [BARU] Badge hasil tes
+        const badgeHasilTes = {
+          'Diproses'   : `<span class="badge-status badge-pending">⏳ Diproses</span>`,
+          'Lulus'      : `<span class="badge-status badge-diterima">✅ Lulus</span>`,
+          'Cadangan'   : `<span class="badge-status badge-diverifikasi">🔄 Cadangan</span>`,
+          'Tidak Lulus': `<span class="badge-status badge-ditolak">❌ Tidak Lulus</span>`,
+        }[p.hasilTes] || `<span style="color:var(--abu-sedang);font-size:12px;">Belum</span>`;
+
+        const fotoHTML = p.foto
+          ? `<img src="/uploads/${p.foto}" class="foto-thumbnail" onclick="lihatFoto('/uploads/${p.foto}')" />`
+          : `<div class="foto-kosong">👤</div>`;
+
+        // [BARU] Tombol lihat dokumen
+        const dokHTML = `
+          <div style="display:flex;flex-direction:column;gap:3px;">
+            ${p.ijazah ? `<a href="/uploads/${p.ijazah}" target="_blank" class="link-dok">📜 Ijazah</a>` : '<span class="dok-kosong">-</span>'}
+            ${p.akta   ? `<a href="/uploads/${p.akta}"   target="_blank" class="link-dok">📋 Akta</a>`   : ''}
+            ${p.kk     ? `<a href="/uploads/${p.kk}"     target="_blank" class="link-dok">🏠 KK</a>`     : ''}
+          </div>`;
+
+        // [BARU] Info wali singkat + tombol detail
+        const waliHTML = p.namaWali
+          ? `<button class="link-dok" onclick='bukaModalWali(${JSON.stringify(p)})' style="cursor:pointer;border:none;background:none;padding:0;">👤 ${p.namaWali.split(' ')[0]}</button>`
+          : `<span style="color:var(--abu-sedang);font-size:12px;">-</span>`;
+
+        baris.innerHTML = `
+          <td><span class="nomor-urut">${i + 1}</span></td>
+          <td>${fotoHTML}</td>
+          <td><code class="nim-code">${p.nim || '-'}</code></td>
+          <td><strong>${p.nama}</strong></td>
+          <td><code>${p.nisn}</code></td>
+          <td>${badgeJK}</td>
+          <td>${badgeJurusan}</td>
+          <td style="font-size:12px;">${p.noHP}</td>
+          <td>${waliHTML}</td>
+          <td>${dokHTML}</td>
+          <td>${badgeHasilTes}</td>
+          <td style="text-align:center;font-weight:700;">${p.nilaiTes ?? '-'}</td>
+          <td>${badgeStatus}</td>
+          <td>
+            <div style="display:flex;flex-direction:column;gap:5px;min-width:90px;">
+              <button class="btn-status" onclick="bukaModalTes(${p.id},'${p.nama}',${p.nilaiTes ?? 'null'},'${p.hasilTes || 'Diproses'}','${(p.catatanAdmin||'').replace(/'/g,"\\'")}')">📊 Tes</button>
+              <button class="btn-status" onclick="bukaModalStatus(${p.id},'${p.nama}','${p.status}','${(p.catatan||'').replace(/'/g,"\\'")}')">✏️ Status</button>
+              <button class="btn-hapus"  onclick="hapusPendaftar(${p.id},'${p.nama}')">🗑️ Hapus</button>
+            </div>
+          </td>
+        `;
+        tbody.appendChild(baris);
+      });
+    }
+
+    // ===== Modal Hasil Tes =====
+    function bukaModalTes(id, nama, nilai, hasil, catatan) {
+      idTesEdit = id;
+      document.getElementById('modalTesNama').textContent    = '👤 ' + nama;
+      document.getElementById('modalNilai').value            = nilai !== null ? nilai : '';
+      document.getElementById('modalHasil').value            = hasil || 'Diproses';
+      document.getElementById('modalCatatanAdmin').value     = catatan || '';
+      document.getElementById('modalTes').style.display      = 'flex';
+    }
+
+    async function simpanTes() {
+      const nilaiTes    = document.getElementById('modalNilai').value;
+      const hasilTes    = document.getElementById('modalHasil').value;
+      const catatanAdmin = document.getElementById('modalCatatanAdmin').value;
+      try {
+        const res = await fetch(`/api/pendaftar/${idTesEdit}/tes`, {
+          method: 'PATCH',
+          headers: { 'Content-Type': 'application/json' },
+          credentials: 'include',
+          body: JSON.stringify({ nilaiTes, hasilTes, catatanAdmin })
+        });
+        const h = await res.json();
+        if (h.berhasil) { document.getElementById('modalTes').style.display = 'none'; muatData(); }
+        else alert('❌ ' + h.pesan);
+      } catch { alert('❌ Gagal menyimpan.'); }
+    }
+
+    // ===== Modal Status =====
+    function bukaModalStatus(id, nama, status, catatan) {
+      idStatusEdit = id;
+      document.getElementById('modalStatusNama').textContent = '👤 ' + nama;
+      document.getElementById('modalPilihStatus').value      = status || 'pending';
+      document.getElementById('modalCatatan').value          = catatan || '';
+      document.getElementById('modalStatus').style.display   = 'flex';
+    }
+
+    async function simpanStatus() {
+      const status  = document.getElementById('modalPilihStatus').value;
+      const catatan = document.getElementById('modalCatatan').value;
+      try {
+        const res = await fetch(`/api/pendaftar/${idStatusEdit}/status`, {
+          method: 'PATCH', headers: { 'Content-Type': 'application/json' },
+          credentials: 'include', body: JSON.stringify({ status, catatan })
+        });
+        const h = await res.json();
+        if (h.berhasil) { document.getElementById('modalStatus').style.display = 'none'; muatData(); }
+        else alert('❌ ' + h.pesan);
+      } catch { alert('❌ Gagal menyimpan.'); }
+    }
+
+    // ===== Modal Wali =====
+    function bukaModalWali(p) {
+      document.getElementById('isiModalWali').innerHTML = `
+        <li style="display:flex;gap:12px;padding:8px 0;border-bottom:1px solid var(--border);">
+          <span class="info-label">Nama Wali</span>
+          <span class="info-value">${p.namaWali || '-'}</span>
+        </li>
+        <li style="display:flex;gap:12px;padding:8px 0;border-bottom:1px solid var(--border);">
+          <span class="info-label">Pekerjaan</span>
+          <span class="info-value">${p.pekerjaanWali || '-'}</span>
+        </li>
+        <li style="display:flex;gap:12px;padding:8px 0;border-bottom:1px solid var(--border);">
+          <span class="info-label">No HP Wali</span>
+          <span class="info-value">${p.noHPWali || '-'}</span>
+        </li>
+        <li style="display:flex;gap:12px;padding:8px 0;">
+          <span class="info-label">Alamat Wali</span>
+          <span class="info-value">${p.alamatWali || '-'}</span>
+        </li>
+      `;
+      document.getElementById('modalWali').style.display = 'flex';
+    }
+
+    function tutupModal(id, event) {
+      if (event.target.id === id) document.getElementById(id).style.display = 'none';
+    }
+
+    function lihatFoto(url) { window.open(url, '_blank'); }
+
+    async function hapusPendaftar(id, nama) {
+      if (!confirm(`Yakin menghapus data ${nama}? Semua dokumen juga akan dihapus.`)) return;
+      try {
+        const res = await fetch(`/api/pendaftar/${id}`, { method: 'DELETE', credentials: 'include' });
+        const h   = await res.json();
+        if (h.berhasil) muatData();
+        else alert('❌ ' + h.pesan);
+      } catch { alert('❌ Gagal menghapus.'); }
+    }
+
+    function exportCSV() { window.open('/api/export', '_blank'); }
+
+    async function logout() {
+      if (!confirm('Yakin ingin keluar?')) return;
+      try { await fetch('/api/logout', { method: 'POST', credentials: 'include' }); } catch {}
+      window.location.href = '/login.html';
+    }
+
+    cekStatusLogin();
+  </script>
+</body>
+</html>

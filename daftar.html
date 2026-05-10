@@ -1,0 +1,286 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Formulir Pendaftaran - SIAP PPDB</title>
+  <link rel="stylesheet" href="style.css" />
+  <!-- [BARU] CSS popup persyaratan -->
+  <link rel="stylesheet" href="popup-persyaratan.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700;800&family=Merriweather:ital,wght@0,700;1,400&display=swap" rel="stylesheet" />
+</head>
+<body>
+  <nav class="navbar">
+    <div class="nav-brand">
+      <a href="index.html" style="text-decoration:none;display:flex;align-items:center;gap:8px;color:inherit;">
+        <span class="nav-logo">🎓</span><span class="nav-title">SIAP PPDB</span>
+      </a>
+    </div>
+    <a href="login.html" class="nav-admin-link">Panel Admin →</a>
+  </nav>
+
+  <main class="form-main">
+    <div class="form-container" style="max-width:680px;">
+
+      <div class="form-header">
+        <div class="form-icon">📝</div>
+        <h2 class="form-title">Formulir Pendaftaran</h2>
+        <p class="form-subtitle">Lengkapi seluruh data dengan benar dan jujur</p>
+      </div>
+
+      <form id="formPendaftaran" class="form-body">
+
+        <!-- ===== SECTION: DATA SISWA ===== -->
+        <div class="form-section-title">👤 Data Siswa</div>
+
+        <div class="form-group">
+          <label for="nama">Nama Lengkap</label>
+          <input type="text" id="nama" placeholder="Masukkan nama lengkap" required />
+        </div>
+
+        <div class="form-row">
+          <div class="form-group">
+            <label for="nisn">NISN</label>
+            <input type="text" id="nisn" placeholder="10 digit angka" maxlength="10" required />
+            <small class="form-hint">10 digit angka</small>
+          </div>
+          <div class="form-group">
+            <label>Jenis Kelamin</label>
+            <div class="radio-group" style="margin-top:8px;">
+              <label class="radio-option">
+                <input type="radio" name="jenisKelamin" value="Laki-laki" required />
+                <span class="radio-custom"></span>👦 Laki-laki
+              </label>
+              <label class="radio-option">
+                <input type="radio" name="jenisKelamin" value="Perempuan" />
+                <span class="radio-custom"></span>👧 Perempuan
+              </label>
+            </div>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="alamat">Alamat Lengkap</label>
+          <textarea id="alamat" rows="2" placeholder="Jl. Contoh No. 1, Kota" required></textarea>
+        </div>
+
+        <div class="form-row">
+          <div class="form-group">
+            <label for="asalSekolah">Asal Sekolah (SMP/MTs)</label>
+            <input type="text" id="asalSekolah" placeholder="SMP Negeri 1 ..." required />
+          </div>
+          <div class="form-group">
+            <label for="noHP">Nomor HP / WhatsApp</label>
+            <input type="tel" id="noHP" placeholder="08xxxxxxxxxx" required />
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="jurusan">Pilihan Jurusan</label>
+          <select id="jurusan" required>
+            <option value="">-- Pilih Jurusan --</option>
+            <option value="IPA">🔬 IPA (Sains)</option>
+            <option value="IPS">🌐 IPS (Sosial)</option>
+            <option value="Bahasa">📝 Bahasa</option>
+          </select>
+        </div>
+
+        <!-- ===== SECTION: DATA WALI MURID (BARU) ===== -->
+        <div class="form-section-title" style="margin-top:28px;">👨‍👩‍👦 Data Wali Murid</div>
+
+        <div class="form-row">
+          <div class="form-group">
+            <label for="namaWali">Nama Wali</label>
+            <input type="text" id="namaWali" placeholder="Nama lengkap wali" required />
+          </div>
+          <div class="form-group">
+            <label for="pekerjaanWali">Pekerjaan Wali</label>
+            <input type="text" id="pekerjaanWali" placeholder="Contoh: Guru, Petani, dll" required />
+          </div>
+        </div>
+
+        <div class="form-row">
+          <div class="form-group">
+            <label for="noHPWali">No HP Wali</label>
+            <input type="tel" id="noHPWali" placeholder="08xxxxxxxxxx" required />
+          </div>
+          <div class="form-group">
+            <label for="alamatWali">Alamat Wali</label>
+            <input type="text" id="alamatWali" placeholder="Alamat (jika berbeda)" required />
+          </div>
+        </div>
+
+        <!-- ===== SECTION: UPLOAD DOKUMEN (BARU) ===== -->
+        <div class="form-section-title" style="margin-top:28px;">📁 Upload Dokumen</div>
+        <p style="font-size:13px;color:var(--abu-sedang);margin-bottom:16px;">
+          Semua dokumen wajib diupload. Format: JPG/PNG/PDF · Maks: 2MB per file.
+        </p>
+
+        <!-- Foto Siswa -->
+        <div class="form-group">
+          <label>📷 Foto Siswa <span class="badge-wajib">Wajib</span></label>
+          <div class="upload-area" onclick="triggerUpload('foto')">
+            <input type="file" id="foto" accept=".jpg,.jpeg,.png" style="display:none" onchange="previewFile(this,'prevFoto','namaFoto')" />
+            <div class="upload-placeholder" id="prevFoto">
+              <div class="upload-icon">🖼️</div>
+              <p id="namaFoto">Klik untuk pilih foto</p>
+              <small>JPG / PNG · Maks 2MB</small>
+            </div>
+          </div>
+        </div>
+
+        <!-- Ijazah / SKL -->
+        <div class="form-group">
+          <label>📜 Ijazah / SKL <span class="badge-wajib">Wajib</span></label>
+          <div class="upload-area" onclick="triggerUpload('ijazah')">
+            <input type="file" id="ijazah" accept=".jpg,.jpeg,.png,.pdf" style="display:none" onchange="previewFile(this,'prevIjazah','namaIjazah')" />
+            <div class="upload-placeholder" id="prevIjazah">
+              <div class="upload-icon">📄</div>
+              <p id="namaIjazah">Klik untuk pilih file</p>
+              <small>JPG / PNG / PDF · Maks 2MB</small>
+            </div>
+          </div>
+        </div>
+
+        <!-- Akta Kelahiran -->
+        <div class="form-group">
+          <label>📋 Akta Kelahiran <span class="badge-wajib">Wajib</span></label>
+          <div class="upload-area" onclick="triggerUpload('akta')">
+            <input type="file" id="akta" accept=".jpg,.jpeg,.png,.pdf" style="display:none" onchange="previewFile(this,'prevAkta','namaAkta')" />
+            <div class="upload-placeholder" id="prevAkta">
+              <div class="upload-icon">📄</div>
+              <p id="namaAkta">Klik untuk pilih file</p>
+              <small>JPG / PNG / PDF · Maks 2MB</small>
+            </div>
+          </div>
+        </div>
+
+        <!-- Kartu Keluarga -->
+        <div class="form-group">
+          <label>🏠 Kartu Keluarga (KK) <span class="badge-wajib">Wajib</span></label>
+          <div class="upload-area" onclick="triggerUpload('kk')">
+            <input type="file" id="kk" accept=".jpg,.jpeg,.png,.pdf" style="display:none" onchange="previewFile(this,'prevKK','namaKK')" />
+            <div class="upload-placeholder" id="prevKK">
+              <div class="upload-icon">📄</div>
+              <p id="namaKK">Klik untuk pilih file</p>
+              <small>JPG / PNG / PDF · Maks 2MB</small>
+            </div>
+          </div>
+        </div>
+
+        <div id="pesanError" class="pesan-error" style="display:none;margin-bottom:12px;">
+          <p id="teksError"></p>
+        </div>
+
+        <button type="submit" class="btn-submit" id="btnSubmit">🚀 Kirim Pendaftaran</button>
+      </form>
+
+      <!-- Pesan sukses -->
+      <div id="pesanSukses" class="pesan-sukses" style="display:none;">
+        <div class="pesan-icon">✅</div>
+        <h3>Pendaftaran Berhasil!</h3>
+        <div class="nim-box">
+          <p>NIM Anda:</p>
+          <div class="nim-number" id="nimDisplay">-</div>
+          <small>Simpan NIM ini sebagai bukti pendaftaran</small>
+        </div>
+        <p style="margin-top:16px;">Kami akan menghubungi Anda melalui nomor HP yang didaftarkan.</p>
+        <a href="cek-status.html" class="btn-kembali">🔍 Cek Status Pendaftaran</a>
+      </div>
+
+    </div>
+  </main>
+
+  <script>
+    // Trigger klik input file tersembunyi
+    function triggerUpload(id) {
+      document.getElementById(id).click();
+    }
+
+    // Preview nama file setelah dipilih + validasi ukuran
+    function previewFile(input, previewId, namaId) {
+      const file = input.files[0];
+      if (!file) return;
+
+      // Validasi ukuran 2MB di browser sebelum kirim
+      if (file.size > 2 * 1024 * 1024) {
+        alert(`File "${file.name}" melebihi 2MB!`);
+        input.value = '';
+        return;
+      }
+
+      const preview = document.getElementById(previewId);
+      const isPdf   = file.type === 'application/pdf';
+
+      if (!isPdf && input.id === 'foto') {
+        // Preview gambar untuk foto siswa
+        const reader = new FileReader();
+        reader.onload = e => {
+          preview.innerHTML = `<img src="${e.target.result}" style="height:80px;border-radius:8px;object-fit:cover;" /><p style="font-size:12px;margin-top:6px;color:var(--hijau);">✅ ${file.name}</p>`;
+        };
+        reader.readAsDataURL(file);
+      } else {
+        // Tampilkan nama file saja untuk PDF dan dokumen lain
+        const icon = isPdf ? '📕' : '🖼️';
+        preview.innerHTML = `<div style="font-size:28px">${icon}</div><p style="font-size:13px;color:var(--hijau);font-weight:600;">✅ ${file.name}</p>`;
+      }
+    }
+
+    document.getElementById('formPendaftaran').addEventListener('submit', async function(e) {
+      e.preventDefault();
+      const btn = document.getElementById('btnSubmit');
+      btn.textContent = '⏳ Mengirim...';
+      btn.disabled = true;
+      document.getElementById('pesanError').style.display = 'none';
+
+      const jkEl = document.querySelector('input[name="jenisKelamin"]:checked');
+
+      // Gunakan FormData agar bisa kirim file + teks sekaligus
+      const fd = new FormData();
+      fd.append('nama',          document.getElementById('nama').value);
+      fd.append('nisn',          document.getElementById('nisn').value);
+      fd.append('jenisKelamin',  jkEl ? jkEl.value : '');
+      fd.append('alamat',        document.getElementById('alamat').value);
+      fd.append('asalSekolah',   document.getElementById('asalSekolah').value);
+      fd.append('noHP',          document.getElementById('noHP').value);
+      fd.append('jurusan',       document.getElementById('jurusan').value);
+      // [BARU] Field wali
+      fd.append('namaWali',      document.getElementById('namaWali').value);
+      fd.append('pekerjaanWali', document.getElementById('pekerjaanWali').value);
+      fd.append('noHPWali',      document.getElementById('noHPWali').value);
+      fd.append('alamatWali',    document.getElementById('alamatWali').value);
+      // [BARU] Semua dokumen
+      const foto   = document.getElementById('foto').files[0];
+      const ijazah = document.getElementById('ijazah').files[0];
+      const akta   = document.getElementById('akta').files[0];
+      const kk     = document.getElementById('kk').files[0];
+      if (foto)   fd.append('foto',   foto);
+      if (ijazah) fd.append('ijazah', ijazah);
+      if (akta)   fd.append('akta',   akta);
+      if (kk)     fd.append('kk',     kk);
+
+      try {
+        const res  = await fetch('/api/daftar', { method: 'POST', body: fd });
+        const data = await res.json();
+        if (res.ok && data.berhasil) {
+          document.getElementById('formPendaftaran').style.display = 'none';
+          document.getElementById('nimDisplay').textContent = data.data.nim;
+          document.getElementById('pesanSukses').style.display = 'block';
+        } else {
+          document.getElementById('teksError').textContent = data.pesan || 'Terjadi kesalahan.';
+          document.getElementById('pesanError').style.display = 'block';
+          btn.textContent = '🚀 Kirim Pendaftaran';
+          btn.disabled = false;
+        }
+      } catch {
+        document.getElementById('teksError').textContent = '⚠️ Tidak dapat terhubung ke server.';
+        document.getElementById('pesanError').style.display = 'block';
+        btn.textContent = '🚀 Kirim Pendaftaran';
+        btn.disabled = false;
+      }
+    });
+  </script>
+  <!-- [BARU] Script popup persyaratan -->
+  <script src="popup-persyaratan.js"></script>
+</body>
+</html>

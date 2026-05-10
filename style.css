@@ -1,0 +1,1659 @@
+/* =============================================
+   SIAP PPDB - style.css
+   File CSS utama untuk semua halaman
+   ============================================= */
+
+/* ===== RESET & VARIABEL WARNA ===== */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box; /* Agar padding tidak menambah lebar elemen */
+}
+
+/* Variabel warna - ubah di sini untuk ganti tema */
+:root {
+  --biru-tua: #1a3a5c;
+  --biru-utama: #2563eb;
+  --biru-muda: #3b82f6;
+  --biru-cerah: #dbeafe;
+  --hijau: #16a34a;
+  --hijau-muda: #dcfce7;
+  --merah: #dc2626;
+  --merah-muda: #fee2e2;
+  --abu-gelap: #374151;
+  --abu-sedang: #6b7280;
+  --abu-muda: #f3f4f6;
+  --putih: #ffffff;
+  --border: #e5e7eb;
+  --bayangan: 0 4px 20px rgba(0,0,0,0.08);
+  --bayangan-biru: 0 8px 30px rgba(37, 99, 235, 0.25);
+}
+
+/* ===== FONT & BODY ===== */
+body {
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  background-color: #f8faff;
+  color: var(--abu-gelap);
+  min-height: 100vh;
+}
+
+/* ===== NAVBAR ===== */
+.navbar {
+  background: var(--putih);
+  border-bottom: 1px solid var(--border);
+  padding: 16px 40px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  position: sticky; /* Navbar tetap di atas saat scroll */
+  top: 0;
+  z-index: 100;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+}
+
+.nav-brand {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.nav-logo {
+  font-size: 24px;
+}
+
+.nav-title {
+  font-size: 20px;
+  font-weight: 800;
+  color: var(--biru-tua);
+  letter-spacing: -0.5px;
+}
+
+.nav-admin-link {
+  font-size: 14px;
+  color: var(--biru-utama);
+  text-decoration: none;
+  font-weight: 600;
+  padding: 8px 16px;
+  border: 1px solid var(--biru-utama);
+  border-radius: 8px;
+  transition: all 0.2s; /* Animasi hover */
+}
+
+.nav-admin-link:hover {
+  background: var(--biru-utama);
+  color: var(--putih);
+}
+
+.nav-admin-badge {
+  font-size: 13px;
+  background: var(--biru-cerah);
+  color: var(--biru-utama);
+  padding: 6px 14px;
+  border-radius: 20px;
+  font-weight: 600;
+}
+
+/* ===== HERO / HALAMAN UTAMA ===== */
+.hero {
+  min-height: calc(100vh - 73px); /* Tinggi penuh dikurangi navbar */
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 60px 80px;
+  position: relative;
+  overflow: hidden; /* Sembunyikan shape yang keluar batas */
+  gap: 40px;
+}
+
+/* Bentuk dekoratif di background */
+.hero-bg-shapes {
+  position: absolute;
+  inset: 0;
+  pointer-events: none; /* Agar tidak menghalangi klik */
+  z-index: 0;
+}
+
+.shape {
+  position: absolute;
+  border-radius: 50%;
+  opacity: 0.06;
+}
+
+.shape-1 {
+  width: 500px;
+  height: 500px;
+  background: var(--biru-utama);
+  top: -150px;
+  right: -100px;
+}
+
+.shape-2 {
+  width: 300px;
+  height: 300px;
+  background: var(--biru-tua);
+  bottom: -80px;
+  left: 200px;
+}
+
+.shape-3 {
+  width: 200px;
+  height: 200px;
+  background: var(--biru-muda);
+  top: 100px;
+  left: 50px;
+}
+
+/* Konten hero (sisi kiri) */
+.hero-content {
+  position: relative;
+  z-index: 1;
+  max-width: 560px;
+}
+
+/* Badge kecil di atas judul */
+.badge {
+  display: inline-block;
+  background: var(--biru-cerah);
+  color: var(--biru-utama);
+  font-size: 13px;
+  font-weight: 600;
+  padding: 6px 16px;
+  border-radius: 20px;
+  margin-bottom: 24px;
+}
+
+/* Judul utama */
+.hero-title {
+  font-family: 'Merriweather', serif;
+  font-size: 42px;
+  line-height: 1.3;
+  color: var(--biru-tua);
+  margin-bottom: 12px;
+}
+
+/* Teks italic di dalam judul */
+.hero-title em {
+  color: var(--biru-utama);
+  font-style: italic;
+}
+
+/* Nama sekolah */
+.school-name {
+  font-size: 20px;
+  font-weight: 700;
+  color: var(--abu-sedang);
+  margin-bottom: 16px;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+}
+
+/* Deskripsi */
+.hero-desc {
+  font-size: 16px;
+  color: var(--abu-sedang);
+  line-height: 1.7;
+  margin-bottom: 32px;
+}
+
+/* Tombol daftar utama */
+.btn-daftar {
+  display: inline-block;
+  background: var(--biru-utama);
+  color: var(--putih);
+  text-decoration: none;
+  font-size: 16px;
+  font-weight: 700;
+  padding: 16px 36px;
+  border-radius: 12px;
+  box-shadow: var(--bayangan-biru);
+  transition: all 0.2s;
+  margin-bottom: 40px;
+}
+
+.btn-daftar:hover {
+  background: var(--biru-tua);
+  transform: translateY(-2px); /* Efek mengangkat saat hover */
+  box-shadow: 0 12px 40px rgba(37, 99, 235, 0.35);
+}
+
+/* Statistik kecil */
+.stats {
+  display: flex;
+  align-items: center;
+  gap: 24px;
+}
+
+.stat-item {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.stat-number {
+  font-size: 22px;
+  font-weight: 800;
+  color: var(--biru-tua);
+}
+
+.stat-label {
+  font-size: 12px;
+  color: var(--abu-sedang);
+}
+
+.stat-divider {
+  width: 1px;
+  height: 36px;
+  background: var(--border);
+}
+
+/* Ilustrasi sisi kanan */
+.hero-illustration {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  flex-shrink: 0;
+}
+
+/* Kartu ilustrasi */
+.illus-card {
+  background: var(--putih);
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  padding: 20px 28px;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  box-shadow: var(--bayangan);
+  animation: mengambang 3s ease-in-out infinite; /* Animasi melayang */
+}
+
+.illus-card-2 {
+  animation-delay: 1s; /* Delay animasi berbeda-beda */
+  margin-left: 30px;
+}
+
+.illus-card-3 {
+  animation-delay: 2s;
+}
+
+/* Animasi melayang naik-turun */
+@keyframes mengambang {
+  0%, 100% { transform: translateY(0px); }
+  50% { transform: translateY(-8px); }
+}
+
+.illus-icon {
+  font-size: 32px;
+}
+
+.illus-text {
+  font-weight: 700;
+  color: var(--biru-tua);
+  font-size: 15px;
+}
+
+/* ===== FOOTER ===== */
+.footer {
+  text-align: center;
+  padding: 20px;
+  font-size: 13px;
+  color: var(--abu-sedang);
+  border-top: 1px solid var(--border);
+  background: var(--putih);
+}
+
+/* ===== HALAMAN PENDAFTARAN ===== */
+.form-main {
+  padding: 40px 20px;
+  min-height: calc(100vh - 73px);
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+}
+
+.form-container {
+  background: var(--putih);
+  border: 1px solid var(--border);
+  border-radius: 20px;
+  padding: 48px;
+  width: 100%;
+  max-width: 600px;
+  box-shadow: var(--bayangan);
+}
+
+/* Header form */
+.form-header {
+  text-align: center;
+  margin-bottom: 40px;
+}
+
+.form-icon {
+  font-size: 48px;
+  margin-bottom: 12px;
+}
+
+.form-title {
+  font-size: 26px;
+  font-weight: 800;
+  color: var(--biru-tua);
+  margin-bottom: 8px;
+}
+
+.form-subtitle {
+  font-size: 14px;
+  color: var(--abu-sedang);
+}
+
+/* Grup field form */
+.form-group {
+  margin-bottom: 24px;
+}
+
+/* Label field */
+.form-group label {
+  display: block;
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--abu-gelap);
+  margin-bottom: 8px;
+}
+
+/* Input teks */
+.form-group input,
+.form-group textarea {
+  width: 100%;
+  padding: 12px 16px;
+  border: 1.5px solid var(--border);
+  border-radius: 10px;
+  font-size: 15px;
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  color: var(--abu-gelap);
+  background: #fafafa;
+  transition: border-color 0.2s, box-shadow 0.2s;
+  outline: none;
+  resize: vertical; /* Textarea bisa diubah tingginya */
+}
+
+/* Efek fokus pada input */
+.form-group input:focus,
+.form-group textarea:focus {
+  border-color: var(--biru-utama);
+  box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
+  background: var(--putih);
+}
+
+/* Teks petunjuk kecil di bawah input */
+.form-hint {
+  font-size: 12px;
+  color: var(--abu-sedang);
+  margin-top: 6px;
+  display: block;
+}
+
+/* Tombol submit */
+.btn-submit {
+  width: 100%;
+  background: var(--biru-utama);
+  color: var(--putih);
+  border: none;
+  padding: 16px;
+  border-radius: 12px;
+  font-size: 16px;
+  font-weight: 700;
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  cursor: pointer;
+  transition: all 0.2s;
+  box-shadow: var(--bayangan-biru);
+  margin-top: 8px;
+}
+
+.btn-submit:hover:not(:disabled) {
+  background: var(--biru-tua);
+  transform: translateY(-1px);
+}
+
+.btn-submit:disabled {
+  opacity: 0.6;
+  cursor: not-allowed; /* Cursor berubah saat tombol nonaktif */
+}
+
+/* Pesan sukses */
+.pesan-sukses {
+  text-align: center;
+  padding: 40px 20px;
+}
+
+.pesan-icon {
+  font-size: 56px;
+  margin-bottom: 16px;
+}
+
+.pesan-sukses h3 {
+  font-size: 22px;
+  color: var(--hijau);
+  margin-bottom: 12px;
+  font-weight: 800;
+}
+
+.pesan-sukses p {
+  color: var(--abu-sedang);
+  line-height: 1.6;
+  margin-bottom: 24px;
+}
+
+.btn-kembali {
+  display: inline-block;
+  background: var(--hijau);
+  color: var(--putih);
+  text-decoration: none;
+  padding: 12px 28px;
+  border-radius: 10px;
+  font-weight: 700;
+  transition: all 0.2s;
+}
+
+.btn-kembali:hover {
+  background: #15803d;
+}
+
+/* Pesan error */
+.pesan-error {
+  background: var(--merah-muda);
+  border: 1px solid #fca5a5;
+  border-radius: 10px;
+  padding: 16px;
+  text-align: center;
+  color: var(--merah);
+  margin-top: 16px;
+  font-size: 14px;
+  font-weight: 600;
+}
+
+/* ===== HALAMAN ADMIN ===== */
+.admin-main {
+  padding: 40px;
+  min-height: calc(100vh - 73px);
+}
+
+.admin-container {
+  max-width: 1100px;
+  margin: 0 auto;
+}
+
+.admin-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 28px;
+  flex-wrap: wrap;
+  gap: 16px;
+}
+
+.admin-title {
+  font-size: 26px;
+  font-weight: 800;
+  color: var(--biru-tua);
+}
+
+.admin-subtitle {
+  font-size: 14px;
+  color: var(--abu-sedang);
+  margin-top: 4px;
+}
+
+.btn-refresh {
+  background: var(--putih);
+  border: 1.5px solid var(--border);
+  padding: 10px 20px;
+  border-radius: 10px;
+  font-size: 14px;
+  font-weight: 600;
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  cursor: pointer;
+  transition: all 0.2s;
+  color: var(--abu-gelap);
+}
+
+.btn-refresh:hover {
+  border-color: var(--biru-utama);
+  color: var(--biru-utama);
+}
+
+/* Kartu ringkasan jumlah pendaftar */
+.summary-card {
+  background: linear-gradient(135deg, var(--biru-utama), var(--biru-tua));
+  color: var(--putih);
+  border-radius: 16px;
+  padding: 24px 32px;
+  display: inline-flex;
+  align-items: center;
+  gap: 20px;
+  margin-bottom: 28px;
+  box-shadow: var(--bayangan-biru);
+}
+
+.summary-icon {
+  font-size: 36px;
+}
+
+.summary-number {
+  font-size: 36px;
+  font-weight: 800;
+}
+
+.summary-label {
+  font-size: 13px;
+  opacity: 0.85;
+}
+
+/* Status loading / kosong / error */
+.status-info {
+  text-align: center;
+  padding: 40px;
+  color: var(--abu-sedang);
+  font-size: 15px;
+  background: var(--putih);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+}
+
+.status-error {
+  color: var(--merah);
+  background: var(--merah-muda);
+  border-color: #fca5a5;
+}
+
+/* Wrapper tabel agar bisa scroll horizontal di layar kecil */
+.table-wrapper {
+  overflow-x: auto;
+  border-radius: 12px;
+  border: 1px solid var(--border);
+  box-shadow: var(--bayangan);
+}
+
+/* Tabel pendaftar */
+.tabel-pendaftar {
+  width: 100%;
+  border-collapse: collapse;
+  background: var(--putih);
+  font-size: 14px;
+}
+
+/* Header tabel */
+.tabel-pendaftar thead tr {
+  background: var(--abu-muda);
+  border-bottom: 2px solid var(--border);
+}
+
+.tabel-pendaftar th {
+  padding: 14px 16px;
+  text-align: left;
+  font-weight: 700;
+  color: var(--abu-gelap);
+  font-size: 13px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  white-space: nowrap;
+}
+
+/* Baris tabel */
+.tabel-pendaftar td {
+  padding: 14px 16px;
+  border-bottom: 1px solid var(--border);
+  color: var(--abu-gelap);
+  vertical-align: top;
+}
+
+/* Efek hover pada baris */
+.tabel-pendaftar tbody tr:hover {
+  background: #f8faff;
+}
+
+/* Baris terakhir tidak ada border bawah */
+.tabel-pendaftar tbody tr:last-child td {
+  border-bottom: none;
+}
+
+/* Nomor urut */
+.nomor-urut {
+  background: var(--biru-cerah);
+  color: var(--biru-utama);
+  font-weight: 700;
+  font-size: 12px;
+  padding: 2px 8px;
+  border-radius: 20px;
+}
+
+/* Kolom NISN pakai font monospace */
+.tabel-pendaftar code {
+  background: var(--abu-muda);
+  padding: 2px 8px;
+  border-radius: 6px;
+  font-size: 13px;
+}
+
+/* Kolom alamat */
+.td-alamat {
+  max-width: 200px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis; /* Tampilkan "..." jika teks terlalu panjang */
+}
+
+/* Kolom waktu */
+.td-waktu {
+  font-size: 12px;
+  color: var(--abu-sedang);
+  white-space: nowrap;
+}
+
+/* ===== RESPONSIVE - Layar kecil (HP) ===== */
+@media (max-width: 768px) {
+  /* Navbar lebih compact */
+  .navbar {
+    padding: 14px 20px;
+  }
+
+  /* Hero jadi satu kolom */
+  .hero {
+    flex-direction: column;
+    padding: 40px 20px;
+    text-align: center;
+  }
+
+  .hero-title {
+    font-size: 28px;
+  }
+
+  .stats {
+    justify-content: center;
+  }
+
+  /* Sembunyikan ilustrasi di HP */
+  .hero-illustration {
+    display: none;
+  }
+
+  /* Form lebih compact */
+  .form-container {
+    padding: 28px 20px;
+  }
+
+  /* Admin */
+  .admin-main {
+    padding: 20px;
+  }
+}
+
+/* =============================================
+   TAMBAHAN - Halaman Login Admin
+   ============================================= */
+
+/* Layout halaman login */
+.login-main {
+  min-height: calc(100vh - 73px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 40px 20px;
+  background: linear-gradient(135deg, #f0f4ff 0%, #f8faff 100%);
+}
+
+/* Kartu form login */
+.login-container {
+  background: var(--putih);
+  border: 1px solid var(--border);
+  border-radius: 20px;
+  padding: 48px;
+  width: 100%;
+  max-width: 440px;
+  box-shadow: 0 8px 40px rgba(37, 99, 235, 0.1);
+}
+
+/* Header login */
+.login-header {
+  text-align: center;
+  margin-bottom: 28px;
+}
+
+/* Lingkaran ikon di tengah */
+.login-icon-wrap {
+  font-size: 48px;
+  width: 80px;
+  height: 80px;
+  background: var(--biru-cerah);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto 16px;
+}
+
+.login-title {
+  font-size: 24px;
+  font-weight: 800;
+  color: var(--biru-tua);
+  margin-bottom: 8px;
+}
+
+.login-subtitle {
+  font-size: 13px;
+  color: var(--abu-sedang);
+}
+
+/* Kotak info akun demo */
+.login-info-box {
+  background: var(--hijau-muda);
+  border: 1px solid #86efac;
+  border-radius: 10px;
+  padding: 14px 16px;
+  font-size: 13px;
+  color: #166534;
+  margin-bottom: 28px;
+  line-height: 1.8;
+}
+
+.login-info-box code {
+  background: rgba(255,255,255,0.6);
+  padding: 1px 6px;
+  border-radius: 4px;
+  font-weight: 600;
+}
+
+/* Wrapper input password + tombol lihat */
+.input-password-wrap {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.input-password-wrap input {
+  padding-right: 48px; /* Ruang untuk tombol mata */
+}
+
+/* Tombol toggle lihat/sembunyikan password */
+.btn-toggle-pw {
+  position: absolute;
+  right: 12px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-size: 18px;
+  padding: 4px;
+  line-height: 1;
+}
+
+/* Tombol Logout di navbar */
+.btn-logout {
+  background: var(--merah-muda);
+  color: var(--merah);
+  border: 1px solid #fca5a5;
+  padding: 8px 16px;
+  border-radius: 8px;
+  font-size: 13px;
+  font-weight: 600;
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.btn-logout:hover {
+  background: var(--merah);
+  color: var(--putih);
+  border-color: var(--merah);
+}
+
+/* Responsive login */
+@media (max-width: 480px) {
+  .login-container {
+    padding: 28px 20px;
+  }
+}
+
+/* ===== TOMBOL NAVIGASI LOGIN PAGE ===== */
+
+/* Tombol "Ke Beranda Admin" (muncul jika sudah login) */
+.btn-ke-beranda {
+  display: inline-block;
+  background: var(--hijau, #16a34a);
+  color: #fff;
+  text-decoration: none;
+  padding: 12px 24px;
+  border-radius: 10px;
+  font-size: 14px;
+  font-weight: 700;
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  transition: all 0.2s;
+  box-shadow: 0 2px 8px rgba(22, 163, 74, 0.25);
+}
+
+.btn-ke-beranda:hover {
+  background: #15803d;
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(22, 163, 74, 0.35);
+}
+
+/* Divider "atau" */
+.login-divider {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin: 20px 0 12px;
+  color: #94a3b8;
+  font-size: 13px;
+}
+
+.login-divider::before,
+.login-divider::after {
+  content: '';
+  flex: 1;
+  height: 1px;
+  background: #e2e8f0;
+}
+
+/* Tombol kembali ke halaman utama */
+.btn-ke-home {
+  display: inline-block;
+  color: #64748b;
+  text-decoration: none;
+  font-size: 13px;
+  font-weight: 600;
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  padding: 8px 16px;
+  border-radius: 8px;
+  border: 1px solid #e2e8f0;
+  transition: all 0.2s;
+}
+
+.btn-ke-home:hover {
+  background: #f1f5f9;
+  color: #334155;
+  border-color: #cbd5e1;
+}
+
+/* =============================================
+   TAMBAHAN v3 - Info Sekolah & Field Baru
+   ============================================= */
+
+/* ===== SECTION INFORMASI SEKOLAH ===== */
+.school-info-section {
+  background: var(--putih);
+  padding: 80px 40px;
+  border-top: 1px solid var(--border);
+}
+
+.school-info-container {
+  max-width: 1100px;
+  margin: 0 auto;
+}
+
+/* Header section */
+.section-header {
+  text-align: center;
+  margin-bottom: 48px;
+}
+
+.section-badge {
+  display: inline-block;
+  background: var(--biru-cerah);
+  color: var(--biru-utama);
+  font-size: 13px;
+  font-weight: 600;
+  padding: 6px 16px;
+  border-radius: 20px;
+  margin-bottom: 12px;
+}
+
+.section-title {
+  font-size: 30px;
+  font-weight: 800;
+  color: var(--biru-tua);
+  margin-bottom: 8px;
+}
+
+.section-desc {
+  color: var(--abu-sedang);
+  font-size: 15px;
+}
+
+/* Grid 2 kolom */
+.info-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 24px;
+}
+
+/* Kartu info */
+.info-card {
+  background: #f8faff;
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  padding: 28px;
+}
+
+/* Kartu utama identitas (kolom penuh di mobile) */
+.info-card-main {
+  grid-column: 1 / -1; /* Rentang ke seluruh kolom */
+}
+
+.info-card-icon {
+  font-size: 32px;
+  margin-bottom: 12px;
+}
+
+.info-card h3 {
+  font-size: 16px;
+  font-weight: 700;
+  color: var(--biru-tua);
+  margin-bottom: 16px;
+}
+
+/* List identitas (label: value) */
+.info-list {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.info-list li {
+  display: flex;
+  gap: 12px;
+  font-size: 14px;
+  align-items: flex-start;
+}
+
+.info-label {
+  color: var(--abu-sedang);
+  min-width: 130px;
+  flex-shrink: 0;
+}
+
+.info-value {
+  color: var(--abu-gelap);
+  font-weight: 600;
+}
+
+/* Teks deskripsi di kartu visi */
+.info-text {
+  font-size: 14px;
+  color: var(--abu-gelap);
+  line-height: 1.7;
+}
+
+/* List misi dengan bullet dot */
+.info-list-dot {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.info-list-dot li {
+  font-size: 14px;
+  color: var(--abu-gelap);
+  padding-left: 16px;
+  position: relative;
+  line-height: 1.5;
+}
+
+.info-list-dot li::before {
+  content: '•';
+  position: absolute;
+  left: 0;
+  color: var(--biru-utama);
+  font-weight: 700;
+}
+
+/* List jurusan */
+.jurusan-list {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.jurusan-item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 12px 14px;
+  border-radius: 10px;
+  border: 1px solid transparent;
+}
+
+.jurusan-ipa  { background: #eff6ff; border-color: #bfdbfe; }
+.jurusan-ips  { background: #f0fdf4; border-color: #bbf7d0; }
+.jurusan-bahasa { background: #fdf4ff; border-color: #e9d5ff; }
+
+.jurusan-icon { font-size: 24px; flex-shrink: 0; }
+
+.jurusan-item strong {
+  display: block;
+  font-size: 14px;
+  color: var(--biru-tua);
+}
+
+.jurusan-item small {
+  font-size: 12px;
+  color: var(--abu-sedang);
+}
+
+/* Footer diperluas */
+.footer-content {
+  text-align: center;
+}
+
+/* ===== RADIO BUTTON JENIS KELAMIN ===== */
+.radio-group {
+  display: flex;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+
+/* Label kustom radio */
+.radio-option {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 12px 20px;
+  border: 1.5px solid var(--border);
+  border-radius: 10px;
+  cursor: pointer;
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--abu-gelap);
+  transition: all 0.2s;
+  background: #fafafa;
+  user-select: none;
+}
+
+/* Sembunyikan input radio asli */
+.radio-option input[type="radio"] {
+  display: none;
+}
+
+/* Lingkaran custom */
+.radio-custom {
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  border: 2px solid var(--border);
+  background: var(--putih);
+  flex-shrink: 0;
+  transition: all 0.2s;
+  position: relative;
+}
+
+/* Saat radio dipilih → border biru, lingkaran terisi */
+.radio-option input[type="radio"]:checked + .radio-custom {
+  border-color: var(--biru-utama);
+  background: var(--biru-utama);
+}
+
+.radio-option input[type="radio"]:checked + .radio-custom::after {
+  content: '';
+  position: absolute;
+  width: 6px;
+  height: 6px;
+  background: white;
+  border-radius: 50%;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+/* Saat dipilih → highlight seluruh label */
+.radio-option:has(input:checked) {
+  border-color: var(--biru-utama);
+  background: var(--biru-cerah);
+  color: var(--biru-utama);
+}
+
+/* ===== SELECT DROPDOWN JURUSAN ===== */
+.form-group select {
+  width: 100%;
+  padding: 12px 16px;
+  border: 1.5px solid var(--border);
+  border-radius: 10px;
+  font-size: 15px;
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  color: var(--abu-gelap);
+  background: #fafafa;
+  transition: border-color 0.2s, box-shadow 0.2s;
+  outline: none;
+  cursor: pointer;
+  appearance: auto; /* Tampilkan panah dropdown default browser */
+}
+
+.form-group select:focus {
+  border-color: var(--biru-utama);
+  box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
+  background: var(--putih);
+}
+
+/* ===== BADGE DI TABEL ADMIN ===== */
+.badge-laki {
+  background: #dbeafe;
+  color: #1d4ed8;
+  padding: 3px 10px;
+  border-radius: 20px;
+  font-size: 12px;
+  font-weight: 600;
+  white-space: nowrap;
+}
+
+.badge-perempuan {
+  background: #fce7f3;
+  color: #be185d;
+  padding: 3px 10px;
+  border-radius: 20px;
+  font-size: 12px;
+  font-weight: 600;
+  white-space: nowrap;
+}
+
+.badge-ipa {
+  background: #dbeafe;
+  color: #1d4ed8;
+  padding: 3px 10px;
+  border-radius: 20px;
+  font-size: 12px;
+  font-weight: 600;
+}
+
+.badge-ips {
+  background: #dcfce7;
+  color: #15803d;
+  padding: 3px 10px;
+  border-radius: 20px;
+  font-size: 12px;
+  font-weight: 600;
+}
+
+.badge-bahasa {
+  background: #f3e8ff;
+  color: #7e22ce;
+  padding: 3px 10px;
+  border-radius: 20px;
+  font-size: 12px;
+  font-weight: 600;
+}
+
+/* ===== STAT CARDS ROW DI ADMIN ===== */
+.admin-stats-row {
+  display: flex;
+  gap: 16px;
+  flex-wrap: wrap;
+  margin-bottom: 28px;
+}
+
+.admin-stats-row .summary-card {
+  margin-bottom: 0;
+}
+
+/* Warna kartu stat laki-laki */
+.summary-card-green {
+  background: linear-gradient(135deg, #16a34a, #15803d) !important;
+}
+
+/* Warna kartu stat perempuan */
+.summary-card-pink {
+  background: linear-gradient(135deg, #db2777, #be185d) !important;
+}
+
+/* ===== RESPONSIVE ===== */
+@media (max-width: 768px) {
+  .school-info-section { padding: 48px 20px; }
+  .info-grid { grid-template-columns: 1fr; }
+  .info-card-main { grid-column: 1; }
+  .admin-stats-row { flex-direction: column; }
+  .radio-group { flex-direction: column; }
+}
+
+/* =============================================
+   TAMBAHAN v4 - Sistem Akun Admin
+   ============================================= */
+
+/* Link di bawah form (login/register/reset) */
+.auth-link {
+  text-align: center;
+  font-size: 13px;
+  color: var(--abu-sedang);
+  margin-top: 16px;
+}
+
+.auth-link a {
+  color: var(--biru-utama);
+  font-weight: 600;
+  text-decoration: none;
+}
+
+.auth-link a:hover {
+  text-decoration: underline;
+}
+
+/* Grup beberapa link auth */
+.auth-links-group {
+  margin-top: 8px;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.auth-links-group .auth-link {
+  margin-top: 0;
+}
+
+/* =============================================
+   TAMBAHAN v5 - Upload Foto, NIM, Hapus
+   ============================================= */
+
+/* ===== AREA UPLOAD FOTO ===== */
+.upload-area {
+  border: 2px dashed var(--border);
+  border-radius: 12px;
+  overflow: hidden;
+  transition: border-color 0.2s;
+}
+
+.upload-area:hover {
+  border-color: var(--biru-utama);
+}
+
+/* Placeholder sebelum foto dipilih */
+.upload-placeholder {
+  padding: 28px;
+  text-align: center;
+  cursor: pointer;
+  color: var(--abu-sedang);
+}
+
+.upload-icon { font-size: 36px; margin-bottom: 8px; }
+.upload-placeholder p { font-weight: 600; font-size: 14px; margin-bottom: 4px; }
+.upload-placeholder small { font-size: 12px; }
+
+/* Preview setelah foto dipilih */
+.upload-preview {
+  padding: 12px;
+  align-items: center;
+  gap: 16px;
+  background: var(--abu-muda);
+}
+
+.upload-preview img {
+  width: 80px;
+  height: 80px;
+  object-fit: cover;
+  border-radius: 8px;
+  border: 1px solid var(--border);
+}
+
+.btn-hapus-foto {
+  background: var(--merah-muda);
+  color: var(--merah);
+  border: 1px solid #fca5a5;
+  padding: 6px 12px;
+  border-radius: 8px;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  font-family: 'Plus Jakarta Sans', sans-serif;
+}
+
+/* ===== NIM BOX di halaman sukses pendaftaran ===== */
+.nim-box {
+  background: var(--biru-cerah);
+  border: 1px solid #bfdbfe;
+  border-radius: 12px;
+  padding: 20px;
+  margin: 20px 0;
+  text-align: center;
+}
+
+.nim-box p { font-size: 13px; color: var(--abu-sedang); margin-bottom: 8px; }
+
+.nim-number {
+  font-size: 32px;
+  font-weight: 800;
+  color: var(--biru-tua);
+  font-family: monospace;
+  letter-spacing: 3px;
+}
+
+.nim-box small { font-size: 12px; color: var(--abu-sedang); display: block; margin-top: 8px; }
+
+/* ===== THUMBNAIL FOTO DI TABEL ADMIN ===== */
+.foto-thumbnail {
+  width: 40px;
+  height: 40px;
+  object-fit: cover;
+  border-radius: 6px;
+  border: 1px solid var(--border);
+  cursor: pointer;
+  transition: transform 0.2s;
+}
+
+.foto-thumbnail:hover {
+  transform: scale(1.5); /* Zoom sedikit saat hover */
+}
+
+/* Ikon placeholder jika tidak ada foto */
+.foto-kosong {
+  width: 40px;
+  height: 40px;
+  background: var(--abu-muda);
+  border-radius: 6px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 20px;
+  color: var(--abu-sedang);
+}
+
+/* ===== NIM CODE DI TABEL ===== */
+.nim-code {
+  background: #f0fdf4;
+  color: #15803d;
+  padding: 3px 8px;
+  border-radius: 6px;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 1px;
+}
+
+/* ===== TOMBOL HAPUS DI TABEL ===== */
+.btn-hapus {
+  background: var(--merah-muda);
+  color: var(--merah);
+  border: 1px solid #fca5a5;
+  padding: 6px 12px;
+  border-radius: 8px;
+  font-size: 12px;
+  font-weight: 600;
+  cursor: pointer;
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  white-space: nowrap;
+  transition: all 0.2s;
+}
+
+.btn-hapus:hover {
+  background: var(--merah);
+  color: white;
+  border-color: var(--merah);
+}
+
+/* =============================================
+   TAMBAHAN v6 - Status, Search, Filter, Modal
+   ============================================= */
+
+/* ===== FILTER BAR ===== */
+.filter-bar {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+  flex-wrap: wrap;
+  margin-bottom: 20px;
+  padding: 16px;
+  background: var(--putih);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+}
+
+.search-wrap {
+  position: relative;
+  flex: 1;
+  min-width: 200px;
+}
+
+.search-icon {
+  position: absolute;
+  left: 12px;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 16px;
+}
+
+.input-search {
+  width: 100%;
+  padding: 10px 12px 10px 38px;
+  border: 1.5px solid var(--border);
+  border-radius: 10px;
+  font-size: 14px;
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  outline: none;
+  transition: border-color 0.2s;
+}
+
+.input-search:focus {
+  border-color: var(--biru-utama);
+  box-shadow: 0 0 0 3px rgba(37,99,235,0.1);
+}
+
+.select-filter {
+  padding: 10px 14px;
+  border: 1.5px solid var(--border);
+  border-radius: 10px;
+  font-size: 14px;
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  outline: none;
+  background: white;
+  cursor: pointer;
+  color: var(--abu-gelap);
+  transition: border-color 0.2s;
+}
+
+.select-filter:focus {
+  border-color: var(--biru-utama);
+}
+
+/* ===== TOMBOL EXPORT ===== */
+.btn-export {
+  background: #16a34a;
+  color: white;
+  border: none;
+  padding: 10px 18px;
+  border-radius: 10px;
+  font-size: 14px;
+  font-weight: 600;
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  cursor: pointer;
+  transition: all 0.2s;
+  white-space: nowrap;
+}
+
+.btn-export:hover {
+  background: #15803d;
+}
+
+/* ===== TOMBOL UPDATE STATUS ===== */
+.btn-status {
+  background: var(--biru-cerah);
+  color: var(--biru-utama);
+  border: 1px solid #bfdbfe;
+  padding: 5px 10px;
+  border-radius: 8px;
+  font-size: 12px;
+  font-weight: 600;
+  cursor: pointer;
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  white-space: nowrap;
+  transition: all 0.2s;
+}
+
+.btn-status:hover {
+  background: var(--biru-utama);
+  color: white;
+}
+
+/* ===== BADGE STATUS ===== */
+.badge-status {
+  display: inline-block;
+  padding: 3px 10px;
+  border-radius: 20px;
+  font-size: 11px;
+  font-weight: 700;
+  white-space: nowrap;
+}
+
+.badge-pending      { background: #fef3c7; color: #92400e; }
+.badge-diverifikasi { background: #ede9fe; color: #6d28d9; }
+.badge-diterima     { background: var(--hijau-muda); color: var(--hijau); }
+.badge-ditolak      { background: var(--merah-muda); color: var(--merah); }
+
+/* ===== CATATAN TEXT ===== */
+.catatan-text {
+  font-size: 12px;
+  color: var(--abu-gelap);
+  cursor: help; /* Menunjukkan ada tooltip */
+}
+
+/* ===== MODAL UPDATE STATUS ===== */
+.modal-overlay {
+  position: fixed;
+  inset: 0; /* top:0, right:0, bottom:0, left:0 */
+  background: rgba(0,0,0,0.5);
+  z-index: 1000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+}
+
+.modal-box {
+  background: var(--putih);
+  border-radius: 16px;
+  padding: 32px;
+  width: 100%;
+  max-width: 460px;
+  box-shadow: 0 20px 60px rgba(0,0,0,0.2);
+}
+
+.modal-title {
+  font-size: 18px;
+  font-weight: 800;
+  color: var(--biru-tua);
+  margin-bottom: 8px;
+}
+
+.modal-nama {
+  font-size: 14px;
+  color: var(--abu-sedang);
+  margin-bottom: 20px;
+  padding-bottom: 16px;
+  border-bottom: 1px solid var(--border);
+}
+
+/* ===== HALAMAN CEK STATUS (Publik) ===== */
+.status-result-card {
+  background: var(--abu-muda);
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  padding: 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.result-nim {
+  font-size: 13px;
+  color: var(--abu-sedang);
+}
+
+.result-nim strong {
+  font-family: monospace;
+  font-size: 16px;
+  color: var(--biru-tua);
+  letter-spacing: 2px;
+}
+
+.result-nama {
+  font-size: 20px;
+  font-weight: 800;
+  color: var(--biru-tua);
+}
+
+.result-jurusan, .result-waktu {
+  font-size: 13px;
+  color: var(--abu-sedang);
+}
+
+.result-catatan {
+  background: #fef9c3;
+  border: 1px solid #fde047;
+  border-radius: 8px;
+  padding: 10px 14px;
+  font-size: 13px;
+  color: #713f12;
+}
+
+/* Responsive filter bar */
+@media (max-width: 768px) {
+  .filter-bar { flex-direction: column; align-items: stretch; }
+  .search-wrap { min-width: unset; }
+}
+
+/* =============================================
+   TAMBAHAN v7 - Wali, Dokumen, Hasil Tes
+   ============================================= */
+
+/* Form row dua kolom */
+.form-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+}
+
+/* Judul section dalam form */
+.form-section-title {
+  font-size: 15px;
+  font-weight: 700;
+  color: var(--biru-tua);
+  padding: 10px 14px;
+  background: var(--biru-cerah);
+  border-radius: 8px;
+  margin-bottom: 16px;
+  border-left: 3px solid var(--biru-utama);
+}
+
+/* Badge "Wajib" merah kecil */
+.badge-wajib {
+  background: var(--merah-muda);
+  color: var(--merah);
+  font-size: 10px;
+  padding: 1px 6px;
+  border-radius: 10px;
+  font-weight: 700;
+  margin-left: 6px;
+  vertical-align: middle;
+}
+
+/* Link lihat dokumen di tabel */
+.link-dok {
+  color: var(--biru-utama);
+  font-size: 11px;
+  font-weight: 600;
+  text-decoration: none;
+  padding: 2px 6px;
+  border-radius: 4px;
+  background: var(--biru-cerah);
+  display: inline-block;
+  transition: all 0.15s;
+}
+
+.link-dok:hover {
+  background: var(--biru-utama);
+  color: white;
+}
+
+.dok-kosong {
+  color: var(--abu-sedang);
+  font-size: 12px;
+}
+
+/* Badge hasil tes - reuse badge-status classes */
+/* Responsive form-row */
+@media (max-width: 600px) {
+  .form-row { grid-template-columns: 1fr; }
+}
